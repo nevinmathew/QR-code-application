@@ -15,14 +15,17 @@ import com.google.zxing.common.BitMatrix;
 
 public class QrCodeGenerator {
 
-    public static void generateQRCode(String data, String filePath, int width, int height) throws WriterException, IOException {
+    private static final String PNG = "PNG";
+	private static final String UTF_8 = "UTF-8";
+
+	public static void generateQRCode(String data, String filePath, int width, int height) throws WriterException, IOException {
         Map<EncodeHintType, Object> hints = new HashMap<>();
-        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+        hints.put(EncodeHintType.CHARACTER_SET, UTF_8);
 
         BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, width, height, hints);
 
         Path path = FileSystems.getDefault().getPath(filePath);
-        MatrixToImageWriter.writeToPath(matrix, "PNG", path);
+        MatrixToImageWriter.writeToPath(matrix, PNG, path);
     }
 
 }
