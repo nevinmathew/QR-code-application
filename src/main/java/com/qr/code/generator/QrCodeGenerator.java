@@ -1,4 +1,4 @@
-package com.qr.code;
+package com.qr.code.generator;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;

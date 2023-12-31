@@ -1,4 +1,4 @@
-package com.qr.code;
+package com.qr.code.reader;
 
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
