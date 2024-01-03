@@ -16,8 +16,21 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The class for reading QR codes.
+ */
 public class QrCodeReader {
 
+	/**
+	 * Reads the content of the QR code from a specified file path.
+	 * 
+	 * @param filePath The file path of the QR code image.
+	 * @return The content of the QR code.
+	 * @throws IOException
+	 * @throws NotFoundException
+	 * @throws ChecksumException
+	 * @throws FormatException
+	 */
     public static String readQRCode(String filePath) throws IOException, NotFoundException, ChecksumException, FormatException {
         BufferedImage image = ImageIO.read(new File(filePath));
         LuminanceSource source = new BufferedImageLuminanceSource(image);
