@@ -1,0 +1,11 @@
+server:
+  servlet:
+    encoding:
+      force: 'true'
+      charset: UTF-8
+      enabled: 'true'
+  compression:
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: '2048'
+  http2:
+    enabled: 'true'
