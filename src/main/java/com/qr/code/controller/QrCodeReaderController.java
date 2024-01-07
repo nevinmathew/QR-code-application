@@ -24,12 +24,12 @@ public class QrCodeReaderController {
 	/**
 	 * REST method that reads the content of QR code from a file name.
 	 * 
-	 * @param fileName The file name of the QR code.
-	 * @return Content of the QR code.
+	 * @param fileName 	The file name of the QR code.
+	 * @return 			Content of the QR code.
 	 * @throws ChecksumException
 	 * @throws FormatException
 	 */
-	@GetMapping("/{name}")
+	@GetMapping("/{fileName}")
 	public String readQRCode(@PathVariable String fileName) throws ChecksumException, FormatException {
 		try {
 			String decodedQRData = QrCodeReader.readQRCode(fileName + PNG);

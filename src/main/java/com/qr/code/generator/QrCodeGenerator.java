@@ -24,10 +24,10 @@ public class QrCodeGenerator {
 	/**
 	 * Generates a QR code with a specified rawdata, filepath, width and height.
 	 * 
-	 * @param rawData The data to generate the QR code.
-	 * @param filePath The file path where the QR image will be saved.
-	 * @param width	The width of the QR code.
-	 * @param height The height of the QR code.
+	 * @param rawData 		The data to generate the QR code.
+	 * @param filePath 		The file path where the QR image will be saved.
+	 * @param width			The width of the QR code.
+	 * @param height 		The height of the QR code.
 	 * @throws WriterException
 	 * @throws IOException
 	 */

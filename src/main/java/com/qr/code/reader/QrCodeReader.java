@@ -24,8 +24,8 @@ public class QrCodeReader {
 	/**
 	 * Reads the content of the QR code from a specified file path.
 	 * 
-	 * @param filePath The file path of the QR code image.
-	 * @return The content of the QR code.
+	 * @param filePath 	The file path of the QR code image.
+	 * @return 			The content of the QR code.
 	 * @throws IOException
 	 * @throws NotFoundException
 	 * @throws ChecksumException
