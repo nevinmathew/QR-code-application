@@ -15,7 +15,7 @@ Easily configure and switch between different QR code generation strategies.
 ### Server Configuration:
 HTTP/2 support, server compression, and encoding settings.
 
-### Client-Side Caching
+### Client-Side Caching:
 This application also supports client-side caching to improve the performance and load times for static resources.
 
 - **Static Resource Caching**
