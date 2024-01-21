@@ -3,6 +3,21 @@
 ## Overview
 This Spring Boot application allows you to generate and read QR codes.
 
+## Features
+
+1. **QR Code Generation:**
+  - Create QR codes from provided data.
+
+2. **QR Code Reading:**
+  - Decode the content of a QR code from an image file.
+
+3. **AOP Logging and Exception Handling:**
+  - Use Aspect-Oriented Programming (AOP) for logging method executions.
+  - Handle exceptions gracefully in controller methods.
+
+4. **Web Configuration:**
+  - Leverage browser caching for static resources.
+
 ## Dependencies
 - Spring Boot
 - ZXing (QR Code library)
