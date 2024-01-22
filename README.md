@@ -3,6 +3,11 @@
 ## Overview
 This Spring Boot application allows you to generate and read QR codes.
 
+## Table of Contents
+- [Features](#features)
+- [Dependencies](#dependencies)
+- [Configuration](#configuration)
+
 ## Features
 
 - **QR Code Generation:**
