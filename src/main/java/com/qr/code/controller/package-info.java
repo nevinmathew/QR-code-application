@@ -1,5 +1,5 @@
 /**
- * 	Package containing the classes related to QR code processing through RESTful APIs.
+ * 	Package contains the classes related to QR code processing through RESTful APIs.
  * 
  * 	@author Nevin
  */
