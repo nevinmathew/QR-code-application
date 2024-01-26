@@ -15,6 +15,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.GCMParameterSpec;
 import javax.imageio.ImageIO;
 
 import com.google.zxing.BarcodeFormat;
@@ -45,13 +46,14 @@ public class HighSecurityQRCodeStrategy implements QRCodeStrategy {
 	static {
 
 		try {
-			keyGenerator = KeyGenerator.getInstance(ALGORITHM);
+			keyGenerator = KeyGenerator.getInstance("AES");
 			keyGenerator.init(256);
 			secretKey = keyGenerator.generateKey();
 
 			cipher = Cipher.getInstance(ALGORITHM);
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
 			e.printStackTrace();
+            throw new RuntimeException("Error initializing Cipher", e);
 		}
 	}
 
@@ -94,12 +96,36 @@ public class HighSecurityQRCodeStrategy implements QRCodeStrategy {
 			return null;
 		}
 	}
+	
+	private String encryptData(String data) {
+		try {
+			System.out.println("Algorithm: " + cipher.getAlgorithm());
+			System.out.println("Provider: " + cipher.getProvider());
+			System.out.println("Key: " + Base64.getEncoder().encodeToString(secretKey.getEncoded()));
+			
+			cipher = null;
+			cipher = Cipher.getInstance(ALGORITHM);
+			cipher.init(Cipher.ENCRYPT_MODE, secretKey, new GCMParameterSpec(128, new byte[12]));
+			
+			byte[] encryptedBytes = cipher.doFinal(data.getBytes(StandardCharsets.UTF_8));
+			
+			return Base64.getEncoder().encodeToString(encryptedBytes);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	private String decryptResult(String encryptedData) {
 		try {
 			byte[] encryptedBytes = Base64.getDecoder().decode(encryptedData);
 
-			cipher.init(Cipher.DECRYPT_MODE, secretKey);
+			System.out.println("Algorithm: " + cipher.getAlgorithm());
+			System.out.println("Provider: " + cipher.getProvider());
+			System.out.println("Key: " + Base64.getEncoder().encodeToString(secretKey.getEncoded()));
+			
+			cipher.init(Cipher.DECRYPT_MODE, secretKey, new GCMParameterSpec(128, new byte[12]));
 
 			byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
 
@@ -111,17 +137,4 @@ public class HighSecurityQRCodeStrategy implements QRCodeStrategy {
 		}
 	}
 
-	private String encryptData(String data) {
-		try {
-			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-
-			byte[] encryptedBytes = cipher.doFinal(data.getBytes(StandardCharsets.UTF_8));
-
-			return Base64.getEncoder().encodeToString(encryptedBytes);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 }

@@ -2,6 +2,7 @@ package com.qr.code.controller;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +26,8 @@ public class QrCodeGeneratorController {
 
 	private static final String PNG = ".png";
     
+	@Autowired
 	private QrCodeSecurityStrategyContext security;
-
-    public void setStrategy(QrCodeSecurityStrategyContext security) {
-        this.security = security;
-    }
 
     /**
 	 * REST method to generate a QR code with the specified data and file name.
@@ -41,7 +39,7 @@ public class QrCodeGeneratorController {
 	 */
 	@GetMapping("/{fileName}")
 	public String generateQRCode(@RequestBody String rawData, @PathVariable String fileName, 
-			@RequestParam(name = SECURITY_TYPE, defaultValue = DEFAULT) String securityType) {
+			@RequestParam(required = false, name = SECURITY_TYPE, defaultValue = DEFAULT) String securityType) {
 		security.setSecurityType(securityType);
 
         try {

@@ -2,6 +2,7 @@ package com.qr.code.controller;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +27,8 @@ public class QrCodeReaderController {
 
 	private static final String SECURITY_TYPE = "securityType";
 	
+	@Autowired
 	private QrCodeSecurityStrategyContext security;
-
-    public void setStrategy(QrCodeSecurityStrategyContext security) {
-        this.security = security;
-    }
-//	 * REST method that reads the content of QR code from a file name.
 
     /**
 	 * REST method that reads the content of QR code from a file name.
@@ -42,17 +39,9 @@ public class QrCodeReaderController {
 	 * @throws ChecksumException
 	 * @throws FormatException
 	 */
-    
-    /**
-     * 
-     * @param fileName
 
-     * @return
-     * @throws ChecksumException
-     * @throws FormatException
-     */
 	@GetMapping("/{fileName}")
-	public String readQRCode(@PathVariable String fileName, @RequestParam(name = SECURITY_TYPE, defaultValue = DEFAULT) String securityType) throws ChecksumException, FormatException {
+	public String readQRCode(@PathVariable String fileName, @RequestParam(required = false, name = SECURITY_TYPE, defaultValue = DEFAULT) String securityType) throws ChecksumException, FormatException {
 		try {
 			
 			security.setSecurityType(securityType);
