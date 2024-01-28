@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.zxing.ChecksumException;
 import com.google.zxing.FormatException;
 import com.google.zxing.NotFoundException;
+import com.qr.code.constants.QrCodeConstants;
 import com.qr.code.security.QrCodeSecurityStrategyContext;
 
 /**
@@ -21,8 +22,6 @@ import com.qr.code.security.QrCodeSecurityStrategyContext;
 @RequestMapping("/api/v1/qrcode/read")
 public class QrCodeReaderController {
 
-	private static final String PNG = ".png";
-	
 	private static final String DEFAULT = "default";
 
 	private static final String SECURITY_TYPE = "securityType";
@@ -46,7 +45,7 @@ public class QrCodeReaderController {
 			
 			security.setSecurityType(securityType);
 			
-	        String decodedQRData = security.getStrategy().readQRCode(fileName + PNG);
+	        String decodedQRData = security.getStrategy().readQRCode(fileName + QrCodeConstants.PNG.name());
 
 	        return "QR Code content: " + decodedQRData;
 	    } catch (NotFoundException | IOException e) {

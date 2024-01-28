@@ -26,20 +26,19 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
+import com.qr.code.constants.QrCodeConstants;
 
 public class DefaultQRCodeStrategy implements QRCodeStrategy {
-    private static final String PNG = "PNG";
-	private static final String UTF_8 = "UTF-8";
 
 	@Override
     public void generateQRCode(String data, String filePath, int width, int height) throws WriterException, IOException {
         Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
-        hints.put(EncodeHintType.CHARACTER_SET, UTF_8);
+        hints.put(EncodeHintType.CHARACTER_SET, QrCodeConstants.UTF_8.name());
 
         BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, width, height, hints);
 
         Path path = FileSystems.getDefault().getPath(filePath);
-        MatrixToImageWriter.writeToPath(matrix, PNG, path);
+        MatrixToImageWriter.writeToPath(matrix, QrCodeConstants.PNG.name(), path);
     }
 
     @Override
