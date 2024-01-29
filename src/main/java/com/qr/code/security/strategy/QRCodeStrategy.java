@@ -9,8 +9,8 @@ import com.google.zxing.WriterException;
 
 public interface QRCodeStrategy {
 
-	void generateQRCode(String data, String filePath, int width, int height) throws WriterException, IOException;
+	void generateQRCode(String data, String filePath, int width, int height) throws WriterException, IOException, Exception;
 
-	String readQRCode(String filePath) throws IOException, NotFoundException, ChecksumException, FormatException;
+	String readQRCode(String filePath) throws IOException, NotFoundException, ChecksumException, FormatException, Exception;
 
 }
