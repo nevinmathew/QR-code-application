@@ -12,9 +12,14 @@ This Spring Boot application allows you to generate and read QR codes.
 
 - **QR Code Generation:**
   - Create QR codes from provided data.
+  - Support for different QR code generation strategies.
 
 - **QR Code Reading:**
   - Decode the content of a QR code from an image file.
+
+- **QR Code Generation Strategies:**
+  - Utilizes a strategy pattern for generating QR codes.
+  - Easily swap between different strategies, such as default and high-security.
 
 - **AOP Logging and Exception Handling:**
   - Use Aspect-Oriented Programming (AOP) for logging method executions.
