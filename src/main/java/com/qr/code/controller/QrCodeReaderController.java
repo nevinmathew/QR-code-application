@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.zxing.NotFoundException;
+import com.qr.code.constants.QrCodeConstants;
 import com.qr.code.dto.QrCodeResponse;
 import com.qr.code.security.QrCodeSecurityStrategyContext;
 
@@ -21,12 +22,6 @@ import com.qr.code.security.QrCodeSecurityStrategyContext;
 @RequestMapping("/api/v1/qrcode/read")
 public class QrCodeReaderController {
 
-	private static final String DEFAULT = "default";
-
-	private static final String SECURITY_TYPE = "securityType";
-	
-	private static final String PNG = ".png";
-	
 	@Autowired
 	private QrCodeSecurityStrategyContext securityContext;
 	
@@ -41,11 +36,11 @@ public class QrCodeReaderController {
 
 	@GetMapping("/{fileName}")
 	public ResponseEntity<QrCodeResponse> readQRCode(@PathVariable String fileName, 
-			@RequestParam(required = false, name = SECURITY_TYPE, defaultValue = DEFAULT) String securityType) throws Exception {
+			@RequestParam(required = false, name = QrCodeConstants.SECURITY_TYPE, defaultValue = QrCodeConstants.DEFAULT) String securityType) throws Exception {
 		
 		try {
 			securityContext.setSecurityType(securityType);
-	        String decodedQRData = securityContext.getStrategy().readQRCode(fileName + PNG);
+	        String decodedQRData = securityContext.getStrategy().readQRCode(fileName +"."+ QrCodeConstants.PNG);
 
 	        String escapedMessage = "QR Code content: " + escapeDoubleQuotes(decodedQRData);
 	        QrCodeResponse response = new QrCodeResponse(true, escapedMessage);

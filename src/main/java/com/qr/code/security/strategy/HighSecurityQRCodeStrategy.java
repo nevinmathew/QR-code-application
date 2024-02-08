@@ -29,15 +29,12 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
+import com.qr.code.constants.QrCodeConstants;
 
 public class HighSecurityQRCodeStrategy implements QRCodeStrategy {
 	private static KeyGenerator keyGenerator;
 	private static Cipher cipher;
 	private static SecretKey secretKey;
-	private static final String ALGORITHM= "AES/GCM/NoPadding";
-	private static final String PNG = "png";
-	private static final String	UTF_8 = "UTF-8";
-
 
 	static {
 
@@ -46,7 +43,7 @@ public class HighSecurityQRCodeStrategy implements QRCodeStrategy {
 			keyGenerator.init(256);
 			secretKey = keyGenerator.generateKey();
 
-			cipher = Cipher.getInstance(ALGORITHM);
+			cipher = Cipher.getInstance(QrCodeConstants.ALGORITHM);
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
 			e.printStackTrace();
             throw new RuntimeException("Error initializing Cipher", e);
@@ -59,13 +56,13 @@ public class HighSecurityQRCodeStrategy implements QRCodeStrategy {
 			String encryptedData = encryptData(data);
 
 			Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
-			hints.put(EncodeHintType.CHARACTER_SET, UTF_8);
+			hints.put(EncodeHintType.CHARACTER_SET, QrCodeConstants.UTF_8);
 
 			BitMatrix matrix = new MultiFormatWriter().encode(encryptedData, BarcodeFormat.QR_CODE, width, height,
 					hints);
 
 			Path path = FileSystems.getDefault().getPath(filePath);
-			MatrixToImageWriter.writeToPath(matrix, PNG, path);
+			MatrixToImageWriter.writeToPath(matrix, QrCodeConstants.PNG, path);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,7 +96,7 @@ public class HighSecurityQRCodeStrategy implements QRCodeStrategy {
 			System.out.println("Key: " + Base64.getEncoder().encodeToString(secretKey.getEncoded()));
 			
 			cipher = null;
-			cipher = Cipher.getInstance(ALGORITHM);
+			cipher = Cipher.getInstance(QrCodeConstants.ALGORITHM);
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey, new GCMParameterSpec(128, new byte[12]));
 			
 			byte[] encryptedBytes = cipher.doFinal(data.getBytes(StandardCharsets.UTF_8));

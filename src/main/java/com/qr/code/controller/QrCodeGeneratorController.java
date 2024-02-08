@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.zxing.WriterException;
+import com.qr.code.constants.QrCodeConstants;
 import com.qr.code.dto.QrCodeResponse;
 import com.qr.code.security.QrCodeSecurityStrategyContext;
 
@@ -21,12 +22,6 @@ import com.qr.code.security.QrCodeSecurityStrategyContext;
 @RestController
 @RequestMapping("/api/v1/qrcode/generate")
 public class QrCodeGeneratorController {
-
-	private static final String DEFAULT = "default";
-
-	private static final String SECURITY_TYPE = "securityType";
-	
-	private static final String PNG = ".png";
 
 	@Autowired
 	private QrCodeSecurityStrategyContext securityContext;
@@ -42,13 +37,12 @@ public class QrCodeGeneratorController {
 	 */
 	@GetMapping("/{fileName}")
 	public ResponseEntity<QrCodeResponse> generateQRCode(@RequestBody String rawData, @PathVariable String fileName,
-			@RequestParam(required = false, name = SECURITY_TYPE, defaultValue = DEFAULT) String securityType) throws Exception {
+			@RequestParam(required = false, name = QrCodeConstants.SECURITY_TYPE, defaultValue = QrCodeConstants.DEFAULT) String securityType) throws Exception {
 		
 		try {
 			securityContext.setSecurityType(securityType);
-			securityContext.getStrategy().generateQRCode(rawData, fileName + PNG, 300, 300);
-			String message = "QR Code generated successfully. "
-					+ "\nnote: You must enter the file name and security type correctly to read this QR code";
+			securityContext.getStrategy().generateQRCode(rawData, fileName+"." + QrCodeConstants.PNG, 300, 300);
+	        String message = "QR Code generated successfully.\nNote: You must enter the file name and security type correctly to read this QR code";
 			QrCodeResponse response = new QrCodeResponse(true, message);
 			return ResponseEntity.ok(response);
 		} catch (WriterException | IOException e) {

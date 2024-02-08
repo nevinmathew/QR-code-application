@@ -33,12 +33,12 @@ public class DefaultQRCodeStrategy implements QRCodeStrategy {
 	@Override
     public void generateQRCode(String data, String filePath, int width, int height) throws WriterException, IOException {
         Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
-        hints.put(EncodeHintType.CHARACTER_SET, QrCodeConstants.UTF_8.name());
+        hints.put(EncodeHintType.CHARACTER_SET, QrCodeConstants.UTF_8);
 
         BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, width, height, hints);
 
         Path path = FileSystems.getDefault().getPath(filePath);
-        MatrixToImageWriter.writeToPath(matrix, QrCodeConstants.PNG.name(), path);
+        MatrixToImageWriter.writeToPath(matrix, QrCodeConstants.PNG, path);
     }
 
     @Override

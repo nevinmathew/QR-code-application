@@ -1,21 +1,14 @@
 package com.qr.code.constants;
 
-public enum QrCodeConstants {
-	
-	PNG(".png"),
-	
-	DEFAULT("default"),
+public class QrCodeConstants {
 
-	SECURITY_TYPE("securityType"),
+	public static final String PNG = "png";
 	
-	UTF_8("UTF-8"),
-	
-	ALGORITHM("AES/GCM/NoPadding");
+	public static final String DEFAULT = "default";
 
-	private final String value;
+	public static final String SECURITY_TYPE = "securityType";
 	
-	QrCodeConstants(String value) {
-		this.value = value;
-	}
-
+	public static final String UTF_8 = "UTF-8";
+	
+	public static final String ALGORITHM = "AES/GCM/NoPadding";
 }
